@@ -1,0 +1,304 @@
+{
+	"info": {
+		"_postman_id": "3b6ba069-56a1-4e20-84bf-3fa606840f8d",
+		"name": "GO.IRIS",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "/auth/login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"access_token\", function() {\r",
+							"    var jsonData = pm.response.json()\r",
+							"    pm.environment.set(\"ACCESS_TOKEN\", jsonData.access_token)\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"alex@go.com.br\",\r\n    \"password\": \"123456\"    \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL}}/auth/login",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/auth/register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"alex@go.com.br\",\r\n    \"password\": \"123456\"    \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL}}/auth/register",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"auth",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/v1/users?email={email}",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{ACCESS_TOKEN}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URL}}/v1/users?email=admin@admin.com",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"v1",
+						"users"
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "admin@admin.com"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/v1/users/{id}",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{ACCESS_TOKEN}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URL}}/v1/users/62101fd1293795017557f4d8",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"v1",
+						"users",
+						"62101fd1293795017557f4d8"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/v1/vehicles",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{ACCESS_TOKEN}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{URL}}/v1/vehicles",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"v1",
+						"vehicles"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/v1/vehicles/{id}",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{ACCESS_TOKEN}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{    \r\n    \"license\": \"AAA0999\",\r\n    \"name\": \"Captiva Sport 2.4 Ecotec\",\r\n    \"model\": \"GM - Chevrolet\",\r\n    \"year_model\": 2012,\r\n    \"year_manufactory\": 2011,\r\n    \"color\": \"Branco\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL}}/v1/vehicles/62141fc10f1afea2cecb2c16",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"v1",
+						"vehicles",
+						"62141fc10f1afea2cecb2c16"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/v1/vehicles/{id}/active",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{ACCESS_TOKEN}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"url": {
+					"raw": "{{URL}}/v1/vehicles/62141fc10f1afea2cecb2c16/active",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"v1",
+						"vehicles",
+						"62141fc10f1afea2cecb2c16",
+						"active"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/v1/vehicles/{id}/inactive",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{ACCESS_TOKEN}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"url": {
+					"raw": "{{URL}}/v1/vehicles/62141fc10f1afea2cecb2c16/inactive",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"v1",
+						"vehicles",
+						"62141fc10f1afea2cecb2c16",
+						"inactive"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/v1/vehicles/{id}",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{ACCESS_TOKEN}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{    \r\n    \"license\": \"AAA0999\",\r\n    \"name\": \"Captiva Sport 2.4 Ecotec\",\r\n    \"model\": \"GM - Chevrolet\",\r\n    \"year_model\": 2012,\r\n    \"year_manufactory\": 2011,\r\n    \"color\": \"Branco\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL}}/v1/vehicles/62141fc10f1afea2cecb2c16",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"v1",
+						"vehicles",
+						"62141fc10f1afea2cecb2c16"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

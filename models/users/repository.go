@@ -2,6 +2,7 @@ package users
 
 import (
 	"github.com/kamva/mgm/v3"
+	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
@@ -38,6 +39,20 @@ func FindByID(id string) (*User, error) {
 	collection := mgm.Coll(user)
 
 	err := collection.FindByID(id, user)
+	if err != nil {
+		return nil, err
+	}
+
+	return user, nil
+}
+
+//FindByEmail -> find by email
+func FindByEmail(email string) (*User, error) {
+	user := &User{}
+
+	collection := mgm.Coll(user)
+
+	err := collection.First(bson.M{"email": email}, user)
 	if err != nil {
 		return nil, err
 	}

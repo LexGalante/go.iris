@@ -1,0 +1,29 @@
+version: '3.2'
+
+services:
+  mongo:
+    image: mongo
+    container_name: app_mongodb    
+    ports:
+      - 9090:9090
+    networks:
+      - app_network
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: mongo
+
+  mongo-express:
+    image: mongo-express
+    restart: always
+    ports:
+      - 9091:9091
+    networks:
+      - app_network
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: mongo
+      ME_CONFIG_MONGODB_URL: mongodb://root:example@mongo:27017/
+
+networks:
+  app_network:
+    driver: bridge
