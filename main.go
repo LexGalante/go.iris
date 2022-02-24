@@ -49,6 +49,7 @@ func main() {
 
 	vehiclesAPI := app.Party("/v1/vehicles")
 	{
+		vehiclesAPI.Use(iris.LimitRequestBodySize(iris.MB * 64))
 		vehiclesAPI.Use(middlewares.JwtMiddleware())
 		vehiclesAPI.Use(middlewares.LogErrorMiddleware())
 		vehiclesAPI.Use(iris.Compression)
@@ -59,6 +60,9 @@ func main() {
 		vehiclesAPI.Delete("/{id:string}", controllers.DeleteVehicle)
 		vehiclesAPI.Patch("/{id:string}/active", controllers.PatchVehicle)
 		vehiclesAPI.Patch("/{id:string}/inactive", controllers.PatchVehicle)
+		vehiclesAPI.Get("/{id:string}/traces", controllers.PaginateTraces)
+		vehiclesAPI.Post("/{id:string}/traces", controllers.PostTrace)
+		vehiclesAPI.Post("/{id:string}/traces/upload", controllers.PostTraceFromCSV)
 	}
 
 	log.Fatal(app.Listen(os.Getenv("APP_PORT")))
